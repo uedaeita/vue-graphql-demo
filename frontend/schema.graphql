@@ -1,0 +1,92 @@
+"""
+The query root of GraphQL interface.
+"""
+type Query {
+  """
+  Look up a human
+  """
+  human(
+    """
+    Select the human that matches this name.
+    """
+    name: String!
+  ): Human
+}
+
+type Human implements Node {
+    id: ID!
+    name: String!
+    age: Int!
+    birthDay: Date
+    hobbies: [String!]!
+}
+
+"""
+An object with an ID.
+"""
+interface Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+"""
+An edge with a cursor.
+"""
+interface Edge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+}
+
+"""
+Possible directions in which to order a list of items when provided an `orderBy` argument.
+"""
+enum OrderDirection {
+  """
+  Specifies an ascending order for a given `orderBy` argument.
+  """
+  ASC
+
+  """
+  Specifies a descending order for a given `orderBy` argument.
+  """
+  DESC
+}
+
+"""
+An ISO-8601 encoded date string.
+"""
+scalar Date
+
+"""
+An ISO-8601 encoded UTC date string.
+"""
+scalar DateTime
